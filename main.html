@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <title>Цены на нефть</title>
+
+</head>
+<body>
+
+<div>
+
+    <h1>Выберите марку нефти</h1>
+    <label for="select">Выберите марку нефти</label>
+    <select id="select">
+        <option value=""></option>
+        <option value="brent-oil">Brent</option>
+        <option value="crude-oil">WTI</option>
+    </select>
+
+    <button onclick="getExchangeRate()">Узнать актуальную цену</button>
+    <hr>
+    <span>Цена в USD: </span>
+    <span id="span" style="font-size: 25pt"></span>
+    <span id="span2" style="font-size: 10pt"></span>
+</div>
+
+<script>
+    const getExchangeRate = async () => {
+        const value = document.getElementById("select").value
+        console.log(value)
+        const ans = await fetch("http://localhost:3000/exchange/" + value)
+        const jsonAns = await ans.json()
+        console.log(jsonAns)
+
+        document.getElementById('span').innerText = jsonAns[0]
+        document.getElementById('span2').innerText = jsonAns[1]
+
+        // if (value) {
+        //     fetch("http://localhost:3000/exchange/" + value)
+        //         .then((res) => {
+        //             console.log(res)
+        //             console.log(res.body)
+        //             const data = res.json()
+        //             console.log(data)
+        //             return res.json()
+        //         })
+        //         .then(r => {
+        //             // console.log(r)
+        //             document.getElementById('span').innerText = r.value[0]
+        //         })
+        //         .catch()
+        // } else {
+        //     document.getElementById('span').innerText = ''
+        // }
+
+
+
+    }
+</script>
+
+</body>
+</html>
